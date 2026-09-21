@@ -1,0 +1,40 @@
+const inputData = document.querySelector("#inputRecipe");
+let submit = document.querySelector(".top-row button");
+let recipeFlex = document.querySelector(".flex-boxes");
+
+async function getRecipe() {
+    const ErrorAlert = document.querySelector("#ErrorAlert");
+
+  if (inputData.value === "") {
+    alert("Please Enter Some Recipe Name");
+    return;
+  }
+
+  const recipeName = inputData.value.trim();
+  const recipeURL = `https://www.themealdb.com/api/json/v1/1/search.php?s=${encodeURIComponent(recipeName)}`;
+
+  const response = await fetch(recipeURL);
+  const recipe = await response.json();
+  let mealsRecipe = recipe.meals;
+
+//   Error alert for wrong recipe name 
+  if(!recipe.meals){
+    ErrorAlert.style.display = "block"
+  }
+
+
+  let interator = "";
+  mealsRecipe.forEach((e) => {
+    interator += `
+                    <a href="#" class="recipe-box">
+                        <img src="${e.strMealThumb}" alt="" class="img-fluid">
+                        <h1 id="">${e.strMeal}</h1>
+                    </a>`;
+  });
+  recipeFlex.innerHTML = interator;
+}
+
+  submit.addEventListener("click", () => {
+    getRecipe();
+  });
+// https://www.themealdb.com/api/json/v1/1/categories.php
