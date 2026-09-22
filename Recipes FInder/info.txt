@@ -1,0 +1,10 @@
+Location = strCountry
+catagory = strCategory
+
+Ingredient and Measure
+strIngredient1 . strMeasure1 to strIngredient20 . strMeasure20
+
+making = strInstructions
+
+
+Making Video = strYoutube
