@@ -16,8 +16,9 @@ async function getRecipe() {
   const response = await fetch(recipeURL);
   const recipe = await response.json();
   let mealsRecipe = recipe.meals;
+  console.log(mealsRecipe);
 
-//   Error alert for wrong recipe name 
+//   Error alert for wrong recipe name
   if(!recipe.meals){
     ErrorAlert.style.display = "block"
   }
@@ -26,7 +27,7 @@ async function getRecipe() {
   let interator = "";
   mealsRecipe.forEach((e) => {
     interator += `
-                    <a href="#" class="recipe-box">
+                    <a href="recipes.html?id=${e.idMeal}" class="recipe-box">
                         <img src="${e.strMealThumb}" alt="" class="img-fluid">
                         <h1 id="">${e.strMeal}</h1>
                     </a>`;
@@ -37,4 +38,8 @@ async function getRecipe() {
   submit.addEventListener("click", () => {
     getRecipe();
   });
-// https://www.themealdb.com/api/json/v1/1/categories.php
+  inputData.addEventListener("keydown", function (event){
+    if(event.key === "Enter"){
+       getRecipe();
+    }
+  })
